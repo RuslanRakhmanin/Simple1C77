@@ -19,7 +19,7 @@ namespace Simple1C77
         public const string IntegerDiv = "INTEGER_DIV";
         public const string FloatDiv = "FLOAT_DIV";
         public const string Equal = "EQUAL";
-        public const string Notequal = "NOTEQUAL";
+        public const string NotEqual = "NOTEQUAL";
         public const string Greater = "GREATER";
         public const string Less = "LESS";
         public const string GreaterEqual = "GREATER_EQUAL";

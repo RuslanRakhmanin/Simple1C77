@@ -406,19 +406,218 @@ namespace Simple1C77
         }
 
 
+        //logical_expr : logical_factor((LOGICAL_OR | LOGICAL_AND) logical_factor)*
         public AST LogicalExpression()
         {
-            //TODO
-            return new AST();
+            AST node;
+            Token token;
+
+            node = LogicalFactor();
+            while(CurrentToken.type == Const.LogicalAnd 
+                || CurrentToken.type == Const.LogicalOr)
+            {
+                token = CurrentToken;
+                Eat(token.type);
+                node = new BinOp(node, token, LogicalFactor());
+            }
+
+            return node;
         }
 
+        //logical_factor : LPAREN logical_expr RPAREN
+        //                | НЕ logical_factor
+        //                | expr(> | < | >= | <= | = | <>) expr
+        public AST LogicalFactor()
+        {
+            AST node;
+            Token token;
+            token = CurrentToken;
+            if (CurrentToken.type == Const.LParen)
+            {
+                Eat(Const.LParen);
+                node = LogicalExpression();
+                Eat(Const.RParen);
+                return node;
+            }
+            else if (CurrentToken.type == Const.LogicalNot)
+            {
+                Eat(Const.LogicalNot);
+                node = new UnaryOp(token, LogicalFactor());
+                return node;
+            }
+            else
+            {
+                node = Expression();
+                token = CurrentToken;
+                if (token.type == Const.Greater
+                    || token.type == Const.GreaterEqual
+                    || token.type == Const.Less
+                    || token.type == Const.LessEqual
+                    || token.type == Const.Equal
+                    || token.type == Const.NotEqual)
+                {
+                    Eat(token.type);
+                    node = new BinOp(node, token, Expression());
+                }
+                return node;
+            }
+        }
+
+        //expr : term((PLUS | MINUS) term)*
         public AST Expression()
         {
-            //TODO
-            return new AST();
+            AST node;
+            Token token;
+
+            node = Term();
+            while(CurrentToken.type == Const.Plus 
+                || CurrentToken.type == Const.Minus)
+            {
+                token = CurrentToken;
+                Eat(token.type);
+                node = new BinOp(node, token, Term());
+            }
+
+            return node;
+        }
+
+        //term : factor ((MUL | INTEGER_DIV | FLOAT_DIV) factor)*
+        public AST Term()
+        {
+            AST node;
+            Token token;
+
+            node = Factor();
+            while(CurrentToken.type == Const.Mul
+                || CurrentToken.type == Const.IntegerDiv
+                || CurrentToken.type == Const.FloatDiv)
+            {
+                token = CurrentToken;
+                Eat(token.type);
+                node = new BinOp(node, token, Factor());
+            }
+
+            return node;
+        }
+
+        //factor : PLUS factor
+        //          | MINUS factor
+        //          | INTEGER_CONST
+        //          | REAL_CONST
+        //          | LPAREN expr RPAREN
+        //          | variable
+        //          | ternary_operator
+        //          | function_call
+        public AST Factor()
+        {
+            AST node;
+            Token token;
+
+            token = CurrentToken;
+            if (token.type == Const.Plus)
+            {
+                Eat(token.type);
+                node = new UnaryOp(token, Factor());
+            }
+            else if (token.type == Const.Minus)
+            {
+                Eat(token.type);
+                node = new UnaryOp(token, Factor());
+            }
+            else if (token.type == Const.IntegerConst)
+            {
+                Eat(token.type);
+                node = new Num(token);
+            }
+            else if (token.type == Const.RealConst)
+            {
+                Eat(token.type);
+                node = new Num(token);
+            }
+            else if (token.type == Const.StringConst)
+            {
+                Eat(token.type);
+                node = new StringData(token);
+            }
+            else if (token.type == Const.LParen)
+            {
+                Eat(Const.LParen);
+                node = Expression();
+                Eat(Const.RParen);
+            }
+            else if (token.type == Const.Question)
+            {
+                node = TernaryOperator();
+            }
+            else if (NextToken.type == Const.LParen)
+            {
+                node = FunctionCall();
+            }
+            else
+                node = Variable();
+
+
+            return node;
         }
 
 
+        //block : declarations statement_list
+
+        //declarations : (Перем (ID COMMA)+ (Экспорт)? SEMI)*
+        //             | (Процедура ID LPAREN(formal_parameters)? RPAREN block КонецПроцедуры SEMI)*
+        //             | (Функция ID LPAREN(formal_parameters)? RPAREN block КонецФункции SEMI)*
+        //             | empty
+
+        //formal_parameters : ID(COMMA ID)*
+
+        //statement_list : statement
+        //               | statement SEMI statement_list
+
+        //statement : assignment_statement
+        //          | if_statement
+        //          | while statement
+        //          | for statement
+        //          | procedure_call
+        //          | comment
+        //          | return_statement
+        //          | empty
+
+        //assignment_statement : variable EQUAL expr
+
+        //if_statement: ЕСЛИ expr ТОГДА statement_list(ИНАЧЕ statement_list)? КОНЕЦЕСЛИ SEMI
+
+
+        //while_statement: ПОКА logical_expr ЦИКЛ
+        //                    statement_list
+        //                 КОНЕЦЦИКЛА
+
+        //for_statement: ДЛЯ assignment_statement ПО expr ЦИКЛ
+        //                    statement_list
+        //               КОНЕЦЦИКЛА
+
+        //empty :
+
+        //expr : term((PLUS | MINUS) term)*
+
+        //term : factor((MUL | INTEGER_DIV | FLOAT_DIV) factor)*
+
+        //factor : PLUS factor
+        //       | MINUS factor
+        //       | INTEGER_CONST
+        //       | REAL_CONST
+        //       | LPAREN expr RPAREN
+        //       | variable
+        //       | function_call
+
+        //variable: ID
+        public AST Parse()
+        {
+            AST node;
+
+            node = Program();
+
+            return node;
+        }
     }
 }
 

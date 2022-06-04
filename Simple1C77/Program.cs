@@ -6,10 +6,6 @@ namespace Simple1C77
     {
         static void Main(string[] args)
         {
-            foreach(var pair in Const.ReservedTokens )
-            {
-                Console.WriteLine("{0}: {1}",pair.Key, pair.Value);
-            }
 
             //Console.ReadLine();
         }

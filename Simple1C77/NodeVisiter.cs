@@ -12,7 +12,7 @@ namespace Simple1C77
             string methodName = "Visit" + this.GetType().Name;
 
             //Type type = typeof(this);
-            Type type = this.GetType();
+            System.Type type = this.GetType();
             MethodInfo methodInfo = type.GetMethod(methodName);
             if (methodInfo == null)
             {
