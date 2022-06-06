@@ -14,9 +14,9 @@ namespace Simple1C77
 
     public class BinOp: AST
     {
-        readonly AST Left;
-        readonly Token Operation;
-        readonly AST Right;
+        public readonly AST Left;
+        public readonly Token Operation;
+        public readonly AST Right;
 
         public BinOp(AST left, Token op, AST right)
         {
@@ -34,8 +34,8 @@ namespace Simple1C77
 
     public class Return : AST
     {
-        Token Token;
-        AST Expression;
+        public readonly Token Token;
+        public readonly AST Expression;
 
         public Return(Token token, AST expression)
         {
@@ -52,8 +52,8 @@ namespace Simple1C77
 
     public class Num : AST
     {
-        Token Token;
-        string Value;
+        public readonly Token Token;
+        public readonly string Value;
 
         public Num(Token token)
         {
@@ -70,8 +70,8 @@ namespace Simple1C77
 
     public class StringData : AST
     {
-        Token Token;
-        string Value;
+        public readonly Token Token;
+        public readonly string Value;
 
         public StringData(Token token)
         {
@@ -88,8 +88,9 @@ namespace Simple1C77
 
     public class UnaryOp : AST
     {
-        Token Token, Operation;
-        AST Expression;
+        public readonly Token Token;
+        public readonly Token Operation;
+        public readonly AST Expression;
 
         public UnaryOp(Token op, AST expr)
         {
@@ -107,8 +108,9 @@ namespace Simple1C77
 
     public class Assign : AST
     {
-        Token Operation;
-        AST Right, Left;
+        public readonly Token Operation;
+        public readonly AST Left;
+        public readonly AST Right;
 
         public Assign(AST left, Token op, AST right)
         {
@@ -116,13 +118,14 @@ namespace Simple1C77
             Operation = op;
             Right = right;
         }
+
     }
 
     public class IfAST : AST
     {
-        Token Token;
-        List<(AST, Compound)> IfBlocks;
-        Compound ElseCompound;
+        public readonly Token Token;
+        public readonly List<(AST, Compound)> IfBlocks;
+        public readonly Compound ElseCompound;
 
         public IfAST(Token token, List<(AST, Compound)> ifBlocks, Compound elseCompound)
         {
@@ -134,8 +137,8 @@ namespace Simple1C77
 
     public class Type : AST
     {
-        Token Token;
-        string Value;
+        public readonly Token Token;
+        public readonly string Value;
 
         public Type(Token token)
         {
@@ -147,8 +150,8 @@ namespace Simple1C77
 
     public class Var : AST
     {
-        Token Token;
-        string Value;
+        public readonly Token Token;
+        public readonly string Value;
         
         public Var(Token token)
         {
@@ -160,8 +163,8 @@ namespace Simple1C77
 
     public class VarDecl : AST
     {
-        Var VarNode;
-        Type TypeNode;
+        public readonly Var VarNode;
+        public readonly Type TypeNode;
         public VarDecl(Var varNode, Type typeNode)
         {
             VarNode = varNode;
@@ -171,10 +174,10 @@ namespace Simple1C77
 
     public class Ternary : AST
     {
-        Token Token;
-        AST Condition;
-        AST TrueStatement;
-        AST FalseStatement;
+        public readonly Token Token;
+        public readonly AST Condition;
+        public readonly AST TrueStatement;
+        public readonly AST FalseStatement;
         public Ternary(Token token, AST condition, AST trueStatement, AST falseStatement)
         {
             Token = token;
@@ -186,9 +189,9 @@ namespace Simple1C77
 
     public class While : AST
     {
-        Token Token;
-        AST Condition;
-        Compound Compound;
+        public readonly Token Token;
+        public readonly AST Condition;
+        public readonly Compound Compound;
 
         public While(Token token, AST condition, Compound compound)
         {
@@ -201,10 +204,10 @@ namespace Simple1C77
 
     public class For : AST
     {
-        Token Token;
-        Assign AssignmentStatement;
-        AST EndNumberExpression;
-        Compound Compound;
+        public readonly Token Token;
+        public readonly Assign AssignmentStatement;
+        public readonly AST EndNumberExpression;
+        public readonly Compound Compound;
 
         public For(Token token, Assign assignmentStatement, AST endNumberExpression, Compound compound)
         {
@@ -219,8 +222,8 @@ namespace Simple1C77
 
     public class Comment : AST
     {
-        Token Token;
-        string Value;
+        public readonly Token Token;
+        public readonly string Value;
 
         public Comment(Token token)
         {
@@ -236,7 +239,7 @@ namespace Simple1C77
 
     public class Continue : AST
     {
-        Token Token;
+        public readonly Token Token;
 
         public Continue(Token token)
         {
@@ -247,7 +250,7 @@ namespace Simple1C77
 
     public class Break : AST
     {
-        Token Token;
+        public readonly Token Token;
 
         public Break(Token token)
         {
@@ -258,7 +261,8 @@ namespace Simple1C77
 
     public class Compound : AST
     {
-        List<AST> Children;
+        public readonly List<AST> Children;
+
         public Compound(List<AST> children)
         {
             Children = new List<AST>();
@@ -267,12 +271,13 @@ namespace Simple1C77
                 Children.Add(statement);
             }
         }
+
     }
 
     public class Block : AST
     {
-        List<AST> Declarations;
-        Compound CompoundStatement;
+        public readonly List<AST> Declarations;
+        public readonly Compound CompoundStatement;
         public Block(List<AST> declarations, Compound compoundStatement)
         {
             Declarations = declarations;
@@ -282,8 +287,8 @@ namespace Simple1C77
 
     public class ProgramAST : AST
     {
-        string Name;
-        Block Block;
+        public readonly string Name;
+        public readonly Block Block;
 
         public ProgramAST(string name, Block block)
         {
@@ -296,8 +301,8 @@ namespace Simple1C77
     public class Param : AST
     {
         // #TODO Add default initialisation compatibility
-        Var VarNode;
-        Type TypeNode;
+        public readonly Var VarNode;
+        public readonly Type TypeNode;
         public Param(Var varNode, Type typeNode)
         {
             VarNode = varNode;
@@ -307,9 +312,9 @@ namespace Simple1C77
 
     public class ProcedureDecl : AST
     {
-        string ProcedureName;
-        List<Param> ParamNodes;
-        Compound CompoundNode;
+        public readonly string ProcedureName;
+        public readonly List<Param> ParamNodes;
+        public readonly Compound CompoundNode;
         public ProcedureDecl(string procedureName, List<Param> paramNodes, Compound compoundNode)
         {
             ProcedureName = procedureName;
@@ -320,9 +325,9 @@ namespace Simple1C77
 
     public class FunctionDecl : AST
     {
-        string FunctionName;
-        List<Param> ParamNodes;
-        Compound CompoundNode;
+        public readonly string FunctionName;
+        public readonly List<Param> ParamNodes;
+        public readonly Compound CompoundNode;
         public FunctionDecl(string functionName, List<Param> paramNodes, Compound compoundNode)
         {
             FunctionName = functionName;
@@ -334,24 +339,26 @@ namespace Simple1C77
 
     public class ProcedureCall : AST
     {
-        string ProcedureName;
-        List<AST> ParamExpressionNodes;
+        public readonly string ProcedureName;
+        public readonly List<AST> ParamExpressionNodes;
         public ProcedureCall(string procedureName, List<AST> paramExpressionNodes)
         {
-            ProcedureName = procedureName;
-            ParamExpressionNodes = paramExpressionNodes;
+            this.ProcedureName = procedureName;
+            this.ParamExpressionNodes = paramExpressionNodes;
         }
+
     }
 
     public class FunctionCall : AST
     {
-        string FunctionName;
-        List<AST> ParamExpressionNodes;
+        public readonly string FunctionName;
+        public readonly List<AST> ParamExpressionNodes;
         public FunctionCall(string functionName, List<AST> paramExpressionNodes)
         {
             FunctionName = functionName;
             ParamExpressionNodes = paramExpressionNodes;
         }
+
     }
 
 

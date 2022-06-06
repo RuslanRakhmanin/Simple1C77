@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Simple1C77
 {
-    internal class NodeVisiter
+    public class NodeVisiter
     {
         public NodeVisiter Visit(AST node)
         {
