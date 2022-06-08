@@ -1,0 +1,47 @@
+
+digraph astgraph {
+    node[shape = circle, fontsize = 12, fontname = "Courier", height = .1];
+    ranksep = .3;
+    edge[arrowsize = .5]
+              node1 [label="Program"]
+  node2 [label="Block"]
+  node3 [label="Compound"]
+  node4 [label="="]
+  node5 [label="a"]
+  node6 [label="1"]
+  node4 -> node5
+  node4 -> node6
+  node3 -> node4
+  node7 [label="="]
+  node8 [label="b"]
+  node9 [label="2"]
+  node7 -> node8
+  node7 -> node9
+  node3 -> node7
+  node10 [label="="]
+  node11 [label="c"]
+  node12 [label="+"]
+  node13 [label="100"]
+  node14 [label="*"]
+  node15 [label="Ternary"]
+  node16 [label=">"]
+  node17 [label="a"]
+  node18 [label="b"]
+  node16 -> node17
+  node16 -> node18
+  node15 -> node16 [label="Condition"]
+  node19 [label="a"]
+  node15 -> node19 [label="True"]
+  node20 [label="b"]
+  node15 -> node20 [label="False"]
+  node21 [label="10"]
+  node14 -> node15
+  node14 -> node21
+  node12 -> node13
+  node12 -> node14
+  node10 -> node11
+  node10 -> node12
+  node3 -> node10
+  node2 -> node3
+  node1 -> node2
+}

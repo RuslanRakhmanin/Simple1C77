@@ -9,11 +9,12 @@ namespace Simple1C77
     {
         public NodeVisiter Visit(AST node)
         {
-            string methodName = "Visit" + this.GetType().Name;
-
+            string methodName = "Visit" + node.GetType().Name;
+            //{Void Simple1C77.INodeVisiter.VisitProgramAST(Simple1C77.ProgramAST)}
             //Type type = typeof(this);
+            
             System.Type type = this.GetType();
-            MethodInfo methodInfo = type.GetMethod(methodName);
+            MethodInfo methodInfo = type.GetInterface("INodeVisiter").GetMethod(methodName);
             if (methodInfo == null)
             {
                 genericVisit(node);

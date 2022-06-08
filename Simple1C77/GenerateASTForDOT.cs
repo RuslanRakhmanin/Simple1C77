@@ -103,6 +103,7 @@ digraph astgraph {
         void INodeVisiter.VisitCompound(Compound node)
         {
             string s;
+            int childNodeNumber;
             s = String.Format("  node{0} [label=\"Compound\"]", _ncount);
             _dotBody.AppendLine(s);
             _nodeNumbers.Add(node, _ncount);
@@ -111,9 +112,12 @@ digraph astgraph {
             foreach (AST childNode in node.Children)
             {
                 Visit(childNode);
-                s = String.Format("  node{0} -> node{1}",
-                    _nodeNumbers[node], _nodeNumbers[childNode]);
-                _dotBody.AppendLine(s);
+                if (_nodeNumbers.TryGetValue(childNode, out childNodeNumber))
+                {
+                    s = String.Format("  node{0} -> node{1}",
+                                _nodeNumbers[node], childNodeNumber);
+                    _dotBody.AppendLine(s);
+                };
             }
         }
 
@@ -187,9 +191,9 @@ digraph astgraph {
                 _dotBody.AppendLine(s);
             }
 
-            Visit(node.CompoundNode);
+            Visit(node.BlockNode);
             s = String.Format("  node{0} -> node{1}",
-                _nodeNumbers[node], _nodeNumbers[node.CompoundNode]);
+                _nodeNumbers[node], _nodeNumbers[node.BlockNode]);
             _dotBody.AppendLine(s);
         }
 
@@ -226,11 +230,12 @@ digraph astgraph {
 
         void INodeVisiter.VisitNoOp(AST node)
         {
-            string s;
-            s = String.Format("  node{0} [label=\"NoOp\"]", _ncount);
-            _dotBody.AppendLine(s);
-            _nodeNumbers.Add(node, _ncount);
-            _ncount += 1;
+            //no need to show NoOp token
+            //string s;
+            //s = String.Format("  node{0} [label=\"NoOp\"]", _ncount);
+            //_dotBody.AppendLine(s);
+            //_nodeNumbers.Add(node, _ncount);
+            //_ncount += 1;
         }
 
         void INodeVisiter.VisitNum(Num node)
@@ -293,9 +298,9 @@ digraph astgraph {
                 _dotBody.AppendLine(s);
             }
 
-            Visit(node.CompoundNode);
+            Visit(node.BlockNode);
             s = String.Format("  node{0} -> node{1}",
-                _nodeNumbers[node], _nodeNumbers[node.CompoundNode]);
+                _nodeNumbers[node], _nodeNumbers[node.BlockNode]);
             _dotBody.AppendLine(s);
         }
 
@@ -317,7 +322,7 @@ digraph astgraph {
         {
             string s;
 
-            s = String.Format("  node{} [label=\"Return:\"]",_ncount);
+            s = String.Format("  node{0} [label=\"Return:\"]",_ncount);
             _dotBody.AppendLine(s);
             _nodeNumbers.Add(node, _ncount);
             _ncount += 1;
@@ -331,7 +336,7 @@ digraph astgraph {
         void INodeVisiter.VisitStringData(StringData node)
         {
             string s;
-            s = String.Format("  node{0} [label=\"{1}\"]", _ncount, node.Value);
+            s = String.Format("  node{0} [label=\"\'{1}\'\"]", _ncount, node.Value);
             _dotBody.AppendLine(s);
             _nodeNumbers.Add(node, _ncount);
             _ncount += 1;
@@ -429,7 +434,7 @@ digraph astgraph {
 
         }
 
-        string GenerateDOT(AST ast)
+        public string GenerateDOT(AST ast)
         {
             Visit(ast);
             string result;

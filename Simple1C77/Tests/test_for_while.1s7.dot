@@ -1,0 +1,85 @@
+
+digraph astgraph {
+    node[shape = circle, fontsize = 12, fontname = "Courier", height = .1];
+    ranksep = .3;
+    edge[arrowsize = .5]
+              node1 [label="Program"]
+  node2 [label="Block"]
+  node3 [label="Compound"]
+  node4 [label="="]
+  node5 [label="суммаПока"]
+  node6 [label="0"]
+  node4 -> node5
+  node4 -> node6
+  node3 -> node4
+  node7 [label="="]
+  node8 [label="s"]
+  node9 [label="1"]
+  node7 -> node8
+  node7 -> node9
+  node3 -> node7
+  node10 [label="While"]
+  node11 [label="<="]
+  node12 [label="s"]
+  node13 [label="999"]
+  node11 -> node12
+  node11 -> node13
+  node10 -> node11 [label="Condition"]
+  node14 [label="Compound"]
+  node15 [label="="]
+  node16 [label="суммаПока"]
+  node17 [label="+"]
+  node18 [label="суммаПока"]
+  node19 [label="s"]
+  node17 -> node18
+  node17 -> node19
+  node15 -> node16
+  node15 -> node17
+  node14 -> node15
+  node20 [label="="]
+  node21 [label="s"]
+  node22 [label="+"]
+  node23 [label="s"]
+  node24 [label="1"]
+  node22 -> node23
+  node22 -> node24
+  node20 -> node21
+  node20 -> node22
+  node14 -> node20
+  node25 [label="Continue"]
+  node14 -> node25
+  node26 [label="="]
+  node27 [label="суммаДля"]
+  node28 [label="0"]
+  node26 -> node27
+  node26 -> node28
+  node14 -> node26
+  node29 [label="For"]
+  node30 [label="="]
+  node31 [label="н"]
+  node32 [label="1"]
+  node30 -> node31
+  node30 -> node32
+  node29 -> node30 [label="From"]
+  node33 [label="999"]
+  node29 -> node33 [label="Till"]
+  node34 [label="Compound"]
+  node35 [label="="]
+  node36 [label="суммаДля"]
+  node37 [label="+"]
+  node38 [label="суммаДля"]
+  node39 [label="н"]
+  node37 -> node38
+  node37 -> node39
+  node35 -> node36
+  node35 -> node37
+  node34 -> node35
+  node40 [label="Break"]
+  node34 -> node40
+  node29 -> node34 [label="Compound"]
+  node14 -> node29
+  node10 -> node14 [label="Compound"]
+  node3 -> node10
+  node2 -> node3
+  node1 -> node2
+}

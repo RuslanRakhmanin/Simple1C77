@@ -59,7 +59,7 @@ namespace Simple1C77
             if (peekPos > _text.Length - 1)
                 return Char.MinValue;
             else
-                return _text[(int)_pos];
+                return _text[(int)peekPos];
         }
 
         public void SkipWhitespace()
@@ -138,7 +138,7 @@ namespace Simple1C77
         {
             StringBuilder stringData = new StringBuilder();
             Token token;
-            string id, type;
+            string id;
 
             while (Char.IsLetterOrDigit(CurrentChar) && CurrentChar != Const.None)
             {
@@ -250,7 +250,7 @@ namespace Simple1C77
                     else if (CurrentChar == '>')
                     {
                         Advance();
-                        return MakeToken(Const.Notequal, "<>");
+                        return MakeToken(Const.NotEqual, "<>");
                     }
                     else
                         return MakeToken(Const.Less, "<");
@@ -273,13 +273,13 @@ namespace Simple1C77
                 if (CurrentChar == '(')
                 {
                     Advance();
-                    return MakeToken(Const.Lparen, "(");
+                    return MakeToken(Const.LParen, "(");
                 }
 
                 if (CurrentChar == ')')
                 {
                     Advance();
-                    return MakeToken(Const.Rparen, ")");
+                    return MakeToken(Const.RParen, ")");
                 }
 
                 if (CurrentChar == '.')
@@ -292,7 +292,7 @@ namespace Simple1C77
 
             }
             
-            return MakeToken(Const.EOF, Const.None);
+            return MakeToken(Const.EOF, Const.None.ToString());
         }
     }
 }

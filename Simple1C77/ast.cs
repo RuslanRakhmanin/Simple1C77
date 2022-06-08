@@ -314,12 +314,12 @@ namespace Simple1C77
     {
         public readonly string ProcedureName;
         public readonly List<Param> ParamNodes;
-        public readonly Compound CompoundNode;
-        public ProcedureDecl(string procedureName, List<Param> paramNodes, Compound compoundNode)
+        public readonly Block BlockNode;
+        public ProcedureDecl(string procedureName, List<Param> paramNodes, Block blockNode)
         {
             ProcedureName = procedureName;
             ParamNodes = paramNodes;
-            CompoundNode = compoundNode;
+            BlockNode = blockNode;
         }
     }
 
@@ -327,12 +327,12 @@ namespace Simple1C77
     {
         public readonly string FunctionName;
         public readonly List<Param> ParamNodes;
-        public readonly Compound CompoundNode;
-        public FunctionDecl(string functionName, List<Param> paramNodes, Compound compoundNode)
+        public readonly Block BlockNode;
+        public FunctionDecl(string functionName, List<Param> paramNodes, Block blockNode)
         {
             FunctionName = functionName;
             ParamNodes = paramNodes;
-            CompoundNode = compoundNode;
+            BlockNode = blockNode;
         }
     }
 

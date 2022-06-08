@@ -52,8 +52,8 @@ namespace Simple1C77
         }
 
         //declarations  : (Перем (ID COMMA)+ (Экспорт)? SEMI)*
-        //              | ((Процедура ID LPAREN(formal_parameters)? RPAREN block КонецПроцедуры SEMI)
-        //              |   | (Функция ID LPAREN(formal_parameters)? RPAREN block КонецФункции SEMI))*
+        //              | ((Процедура ID LPAREN(formal_parameters)? RPAREN (Экспорт)? block КонецПроцедуры SEMI)
+        //              |   | (Функция ID LPAREN(formal_parameters)? RPAREN (Экспорт)? block КонецФункции SEMI))*
         //              | empty
         public List<AST> Declarations()
         {
@@ -94,14 +94,20 @@ namespace Simple1C77
                     string procName = CurrentToken.value;
                     Eat(Const.Id);
                     Eat(Const.LParen);
-                    if (CurrentToken.value == Const.Id)
+                    if (CurrentToken.type == Const.Id)
                         parameters = FormalParameters();
                     else
                         parameters = new List<Param>();
-                    Compound compoundNode = CompoundStatement();
+                    Eat(Const.RParen);
+                    if (CurrentToken.type == Const.Export)
+                    {
+                        Eat(Const.Export);
+                        //#TODO Save variable in the global scope
+                    }
+                    Block blockNode = Block();
                     Eat(Const.ProcedureEnd);
                     Eat(Const.Semi);
-                    declarations.Add(new ProcedureDecl(procName, parameters, compoundNode));
+                    declarations.Add(new ProcedureDecl(procName, parameters, blockNode));
                 } else if (CurrentToken.type == Const.Function)
                 {
                     List<Param> parameters;
@@ -109,14 +115,20 @@ namespace Simple1C77
                     string procName = CurrentToken.value;
                     Eat(Const.Id);
                     Eat(Const.LParen);
-                    if (CurrentToken.value == Const.Id)
+                    if (CurrentToken.type == Const.Id)
                         parameters = FormalParameters();
                     else
                         parameters = new List<Param>();
-                    Compound compoundNode = CompoundStatement();
+                    Eat(Const.RParen);
+                    if (CurrentToken.type == Const.Export)
+                    {
+                        Eat(Const.Export);
+                        //#TODO Save variable in the global scope
+                    }
+                    Block blockNode = Block();
                     Eat(Const.FunctionEnd);
                     Eat(Const.Semi);
-                    declarations.Add(new FunctionDecl(procName, parameters, compoundNode));
+                    declarations.Add(new FunctionDecl(procName, parameters, blockNode));
                 }
             }
 

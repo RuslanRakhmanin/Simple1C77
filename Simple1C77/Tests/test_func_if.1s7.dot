@@ -1,0 +1,211 @@
+
+digraph astgraph {
+    node[shape = circle, fontsize = 12, fontname = "Courier", height = .1];
+    ranksep = .3;
+    edge[arrowsize = .5]
+              node1 [label="Program"]
+  node2 [label="Block"]
+  node3 [label="VarDecl"]
+  node4 [label="б"]
+  node3 -> node4
+  node2 -> node3
+  node5 [label="ProcedureDecl:Alpha"]
+  node6 [label="Param"]
+  node7 [label="a"]
+  node6 -> node7
+  node5 -> node6
+  node8 [label="Param"]
+  node9 [label="z"]
+  node8 -> node9
+  node5 -> node8
+  node10 [label="Param"]
+  node11 [label="x"]
+  node10 -> node11
+  node5 -> node10
+  node12 [label="Block"]
+  node13 [label="VarDecl"]
+  node14 [label="b"]
+  node13 -> node14
+  node12 -> node13
+  node15 [label="Compound"]
+  node16 [label="="]
+  node17 [label="a"]
+  node18 [label="2"]
+  node16 -> node17
+  node16 -> node18
+  node15 -> node16
+  node19 [label="="]
+  node20 [label="b"]
+  node21 [label="+"]
+  node22 [label="a"]
+  node23 [label="1"]
+  node21 -> node22
+  node21 -> node23
+  node19 -> node20
+  node19 -> node21
+  node15 -> node19
+  node12 -> node15
+  node5 -> node12
+  node2 -> node5
+  node24 [label="FunctionDecl:Beta"]
+  node25 [label="Param"]
+  node26 [label="f"]
+  node25 -> node26
+  node24 -> node25
+  node27 [label="Block"]
+  node28 [label="Compound"]
+  node29 [label="="]
+  node30 [label="c"]
+  node31 [label="+"]
+  node32 [label="f"]
+  node33 [label="4"]
+  node31 -> node32
+  node31 -> node33
+  node29 -> node30
+  node29 -> node31
+  node28 -> node29
+  node34 [label="="]
+  node35 [label="f"]
+  node36 [label="222"]
+  node34 -> node35
+  node34 -> node36
+  node28 -> node34
+  node37 [label="Return:"]
+  node38 [label="+"]
+  node39 [label="f"]
+  node40 [label="4"]
+  node38 -> node39
+  node38 -> node40
+  node37 -> node38
+  node28 -> node37
+  node27 -> node28
+  node24 -> node27
+  node2 -> node24
+  node41 [label="FunctionDecl:Текст"]
+  node42 [label="Param"]
+  node43 [label="т"]
+  node42 -> node43
+  node41 -> node42
+  node44 [label="Block"]
+  node45 [label="Compound"]
+  node46 [label="Return:"]
+  node47 [label="+"]
+  node48 [label="т"]
+  node49 [label="' done'"]
+  node47 -> node48
+  node47 -> node49
+  node46 -> node47
+  node45 -> node46
+  node44 -> node45
+  node41 -> node44
+  node2 -> node41
+  node50 [label="Compound"]
+  node51 [label="="]
+  node52 [label="b"]
+  node53 [label="+"]
+  node54 [label="+"]
+  node55 [label="100"]
+  node56 [label="10"]
+  node54 -> node55
+  node54 -> node56
+  node57 [label="1"]
+  node53 -> node54
+  node53 -> node57
+  node51 -> node52
+  node51 -> node53
+  node50 -> node51
+  node58 [label="ProcedureCall:Alpha"]
+  node59 [label="b"]
+  node58 -> node59
+  node60 [label="FunctionCall:Beta"]
+  node61 [label="-"]
+  node62 [label="b"]
+  node63 [label="1"]
+  node61 -> node62
+  node61 -> node63
+  node60 -> node61
+  node58 -> node60
+  node64 [label="10"]
+  node58 -> node64
+  node50 -> node58
+  node65 [label="="]
+  node66 [label="d"]
+  node67 [label="FunctionCall:Beta"]
+  node68 [label="b"]
+  node67 -> node68
+  node65 -> node66
+  node65 -> node67
+  node50 -> node65
+  node69 [label="="]
+  node70 [label="text1"]
+  node71 [label="'All'"]
+  node69 -> node70
+  node69 -> node71
+  node50 -> node69
+  node72 [label="="]
+  node73 [label="text2"]
+  node74 [label="'Nothing'"]
+  node72 -> node73
+  node72 -> node74
+  node50 -> node72
+  node75 [label="If"]
+  node76 [label="НЕ"]
+  node77 [label="ИЛИ"]
+  node78 [label="="]
+  node79 [label="b"]
+  node80 [label="222"]
+  node78 -> node79
+  node78 -> node80
+  node81 [label="ИЛИ"]
+  node82 [label=">"]
+  node83 [label="б"]
+  node84 [label="300"]
+  node82 -> node83
+  node82 -> node84
+  node85 [label="<="]
+  node86 [label="b"]
+  node87 [label="-"]
+  node88 [label="300"]
+  node87 -> node88
+  node85 -> node86
+  node85 -> node87
+  node81 -> node82
+  node81 -> node85
+  node77 -> node78
+  node77 -> node81
+  node76 -> node77
+  node75 -> node76 [label="Condition"]
+  node89 [label="Compound"]
+  node90 [label="="]
+  node91 [label="outtext"]
+  node92 [label="FunctionCall:Текст"]
+  node93 [label="text1"]
+  node92 -> node93
+  node90 -> node91
+  node90 -> node92
+  node89 -> node90
+  node75 -> node89 [label="If compound"]
+  node94 [label="НЕ"]
+  node95 [label="<>"]
+  node96 [label="b"]
+  node97 [label="222"]
+  node95 -> node96
+  node95 -> node97
+  node94 -> node95
+  node75 -> node94 [label="Condition"]
+  node98 [label="Compound"]
+  node99 [label="="]
+  node100 [label="outtext"]
+  node101 [label="FunctionCall:Текст"]
+  node102 [label="text2"]
+  node101 -> node102
+  node99 -> node100
+  node99 -> node101
+  node98 -> node99
+  node75 -> node98 [label="If compound"]
+  node103 [label="Compound"]
+  node75 -> node103 [label="Else compound"]
+  node50 -> node75
+  node2 -> node50
+  node1 -> node2
+}

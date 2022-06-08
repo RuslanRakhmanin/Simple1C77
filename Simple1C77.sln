@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple1C77", "Simple1C77\Simple1C77.csproj", "{942B5A60-B43B-4EF0-8A88-6A59034B6E0A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B199F727-D5F9-4199-83EE-FA30D324D7EB}"
-	ProjectSection(SolutionItems) = preProject
-		s1s7\s1s7_parser.py = s1s7\s1s7_parser.py
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
